@@ -15,9 +15,9 @@ The chatbot is able to understand and speak many languages and has been trained 
 
 > 🤩 🤖 [**Wassenger is a complete WhatsApp API cloud solution. Sign up for free and get started in minutes!**](https://wassenger.com)
 
-<a href="https://wassenger.com">
+<!-- <a href="https://wassenger.com">
  <img src="https://wassenger.com/images/screenshots/main-chat.webp" width="100%" style="box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 10%) !important"/>
-</a>
+</a> -->
 
 ### Contents
 
@@ -35,7 +35,7 @@ The chatbot is able to understand and speak many languages and has been trained 
 
 ### Demo
 
-![demo](https://miro.medium.com/v2/resize:fit:2000/format:webp/1*p-noYzcPwiaX4w8wYzJCyQ.jpeg)
+![demo](demo.jpg)
 
 ### How it works
 
