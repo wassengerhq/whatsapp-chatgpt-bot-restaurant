@@ -94,17 +94,17 @@ The AI bot will always reply to inbound messages based on the following criteria
 If you have [git](https://git-scm.org) installed, run the following command from the Terminal:
 
 ```bash
-git clone https://github.com/wassengerhq/whatsapp-chatgpt-bot.git
+git clone https://github.com/wassengerhq/whatsapp-chatgpt-bot-restaurant.git
 ```
 
-If you don't have `git`, download the project sources [using this link](https://github.com/wassengerhq/whatsapp-chatgpt-bot/download) and unzip it.
+If you don't have `git`, download the project sources [using this link](https://github.com/wassengerhq/whatsapp-chatgpt-bot-restaurant/download) and unzip it.
 
 ### Configuration
 
 Open your favorite terminal and change directory to project folder where `package.json` is located:
 
 ```
-cd ~/Downloads/whatsapp-chatgpt-bot/
+cd ~/Downloads/whatsapp-chatgpt-bot-restaurant/
 ```
 
 From that folder, install dependencies by running:
