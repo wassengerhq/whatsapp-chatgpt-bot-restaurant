@@ -104,7 +104,7 @@ If you don't have `git`, download the project sources [using this link](https://
 Open your favorite terminal and change directory to project folder where `package.json` is located:
 
 ```
-cd ~/Downloads/whatsapp-chatgpt-bot-restaurant/
+cd whatsapp-chatgpt-bot-restaurant/
 ```
 
 From that folder, install dependencies by running:
