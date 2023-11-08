@@ -2,12 +2,16 @@
 
 **Demo project to build a fully functional AI chatbot on WhatsApp that can reply to customers and manage table reservations, powered by [ChatGPT](https://openai.com/chatgpt) and WhatsApp [Wassenger API](https://wassenger.com).**
 
+[![Run in Codeflow](https://developer.stackblitz.com/img/open_in_codeflow.svg)](https:///pr.new/wassengerhq/whatsapp-chatgpt-bot-restaurant)
+
 By following this tutorial you will be able to have a fully functional ChatGPT-like AI chatbot running in minutes on your computer or cloud server that is a Restaurant virtual customer support assistant that can reply to random customers query and manage table booking reservations automatically.
 
 You can [easily customize and instruct the AI](#customization) to adjust its behaviour, role, purpose and knowledge boundaries.
 Also, the AI bot will be conversation-aware based on the previous messages you had with the user on WhatsApp, providing more context-specific accurate responses.
 
 The chatbot is able to understand and speak many languages and has been trained to behave like a customer support virtual assistant specialized in certain tasks.
+
+👉 *[Run the bot program right from your web browser](https:///pr.new/wassengerhq/whatsapp-chatgpt-bot-restaurant)* 🤩 💻
 
 <!--
 *[Read the blog tutorial here](https://medium.com/@wassenger/build-a-whatsapp-chatgpt-powered-ai-chatbot-for-your-business-595a60eb17da)*
