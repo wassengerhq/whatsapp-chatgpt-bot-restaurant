@@ -155,34 +155,14 @@ export async function processMessage ({ data, device } = {}) {
       const [response] = completion.choices
 
       // If response is a function call, return the custom result
-      if (response.message.function_call && response.message.function_call.name === 'check_table_date_availability') {
-        const content = 'Good news! We have tables available on that date'
-        messages.push(response.message)
-        messages.push({ role: 'function', name: response.message.function_call.name, content })
-        return await respond()
-      }
-
-      if (response.message.function_call && response.message.function_call.name === 'check_availability_hours') {
-        const content = [
-          'We have tables available on the following hours:',
-          '- 1 pm',
-          '-2 pm',
-          '- 5 pm',
-          '- 6 pm',
-          '- 7 pm',
-          '- 8 pm',
-          '- 9 pm'
-        ].join('\n')
-        messages.push(response.message)
-        messages.push({ role: 'function', name: response.message.function_call.name, content })
-        return await respond()
-      }
-
-      if (response.message.function_call && response.message.function_call.name === 'confirm_table_reservation') {
-        const content = 'The table reservation is confirmed'
-        messages.push(response.message)
-        messages.push({ role: 'function', name: response.message.function_call.name, content })
-        return await respond()
+      if (response.message.function_call && response.message.function_call.name) {
+        const func = config.functions[response.message.function_call.name]
+        if (typeof func === 'function') {
+          const message = await func({ response, data, device, messages })
+          await reply({ message })
+        } else {
+          console.error('[warning] missing function call in config.functions', response.message.function_call.name)
+        }
       }
 
       // Otherwise forward the AI generate message

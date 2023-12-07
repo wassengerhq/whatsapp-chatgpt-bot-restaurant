@@ -67,7 +67,7 @@ Give it a try! 😁`
 // Learn more here: https://platform.openai.com/docs/guides/gpt/function-calling
 const openaiFunctions = [
   {
-    name: 'check_availability_hours',
+    name: 'checkAvailabilityHours',
     description: 'Obtain a list of available hours for a given day',
     parameters: {
       type: 'object',
@@ -79,7 +79,7 @@ const openaiFunctions = [
     }
   },
   {
-    name: 'confirm_table_reservation',
+    name: 'confirmTableReservation',
     description: 'Book a table for a given day, time and number of people.',
     parameters: {
       type: 'object',
@@ -95,7 +95,7 @@ const openaiFunctions = [
     }
   },
   {
-    name: 'check_table_date_availability',
+    name: 'checkTableDateAvailability',
     description: 'Check table reservation availability for a given day and time',
     parameters: {
       type: 'object',
@@ -108,6 +108,42 @@ const openaiFunctions = [
     }
   }
 ]
+
+// Optional. Edit as needed to cover your business use cases.
+// Note the method property name for every function must be equal the openaiFunctions[].name property.
+// Collection of callable function calls used to generate the response to feed the AI model
+// and generate a domain-specific response to the user.
+// Functions may be synchronous or asynchronous.
+// Learn more here: https://platform.openai.com/docs/guides/gpt/function-calling
+const functions = {
+  async checkAvailabilityHours ({ response, data, device, messages }) {
+    const content = [
+      'We have tables available on the following hours:',
+      '- 1 pm',
+      '- 2 pm',
+      '- 5 pm',
+      '- 6 pm',
+      '- 7 pm',
+      '- 8 pm',
+      '- 9 pm'
+    ].join('\n')
+    messages.push(response.message)
+    messages.push({ role: 'function', name: response.message.function_call.name, content })
+    return content
+  },
+  async confirmTableReservation ({ response, data, device, messages }) {
+    const content = 'Good news! We have tables available on that date'
+    messages.push(response.message)
+    messages.push({ role: 'function', name: response.message.function_call.name, content })
+    return content
+  },
+  async checkTableDateAvailability ({ response, data, device, messages }) {
+    const content = 'The table reservation is confirmed'
+    messages.push(response.message)
+    messages.push({ role: 'function', name: response.message.function_call.name, content })
+    return content
+  }
+}
 
 // Chatbot config
 export default {
@@ -139,6 +175,14 @@ export default {
   // specific information about the customer, such as email, phone number, user ID, etc.
   // Learn more here: https://platform.openai.com/docs/guides/gpt/function-calling
   openaiFunctions,
+
+  // Optional. Edit as needed to cover your business use cases.
+  // Note the method property name for every function must be equal the openaiFunctions[].name property.
+  // Collection of callable function calls used to generate the response to feed the AI model
+  // and generate a domain-specific response to the user.
+  // Functions may be synchronous or asynchronous.
+  // Learn more here: https://platform.openai.com/docs/guides/gpt/function-calling
+  functions,
 
   // Optional. HTTP server TCP port to be used. Defaults to 8080
   port: +env.PORT || 8080,
