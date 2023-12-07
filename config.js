@@ -59,6 +59,56 @@ Type *human* to talk with a person. The chat will be assigned to an available me
 
 Give it a try! 😁`
 
+// Optional. AI callable functions to be interpreted by the AI
+// Using it you can instruct the AI to inform you to execute arbitrary functions
+// in your code based in order to augment information for a specific user query.
+// For example, you can call an external CRM in order to retrieve, save or validate
+// specific information about the customer, such as email, phone number, user ID, etc.
+// Learn more here: https://platform.openai.com/docs/guides/gpt/function-calling
+const openaiFunctions = [
+  {
+    name: 'check_availability_hours',
+    description: 'Obtain a list of available hours for a given day',
+    parameters: {
+      type: 'object',
+      properties: {
+        date: { type: 'string', format: 'date', default: new Date().toISOString().slice(0, 10) },
+        timezone: { type: 'string', format: 'timezone', default: 'America/New_York' }
+      },
+      required: ['date']
+    }
+  },
+  {
+    name: 'confirm_table_reservation',
+    description: 'Book a table for a given day, time and number of people.',
+    parameters: {
+      type: 'object',
+      properties: {
+        people: { type: 'integer', description: 'For how many people the table booking should be, from 1 up to 12 person.', format: 'int', maximum: 12, minimum: 1 },
+        date: { type: 'string', description: 'Day for the table booking', format: 'date', default: new Date().toISOString().slice(0, 10) },
+        time: { type: 'string', description: 'Day time for the table booking', format: 'time',  default: new Date().toISOString().slice(11, 16) },
+        name: { type: 'string', description: 'Person name and surname for who the table is booked' },
+        email: { type: 'string', description: 'Contact email' },
+        timezone: { type: 'string', format: 'timezone', default: 'America/New_York' }
+      },
+      required: ['people', 'date', 'time', 'name', 'email']
+    }
+  },
+  {
+    name: 'check_table_date_availability',
+    description: 'Check table reservation availability for a given day and time',
+    parameters: {
+      type: 'object',
+      properties: {
+        date: { type: 'string', format: 'date', default: new Date().toISOString().slice(0, 10) },
+        time: { type: 'string', format: 'time', default: new Date().toISOString().slice(11, 16) },
+        timezone: { type: 'string', format: 'timezone', default: 'America/New_York' }
+      },
+      required: ['date', 'time']
+    }
+  }
+]
+
 // Chatbot config
 export default {
   // Optional. Specify the Wassenger device ID (24 characters hexadecimal length) to be used for the chatbot
@@ -88,49 +138,7 @@ export default {
   // For example, you can call an external CRM in order to retrieve, save or validate
   // specific information about the customer, such as email, phone number, user ID, etc.
   // Learn more here: https://platform.openai.com/docs/guides/gpt/function-calling
-  openaiFunctions: [
-    {
-      name: 'check_availability_hours',
-      description: 'Obtain a list of available hours for a given day',
-      parameters: {
-        type: 'object',
-        properties: {
-          date: { type: 'string', format: 'date', default: new Date().toISOString().slice(0, 10) },
-          timezone: { type: 'string', format: 'timezone', default: 'America/New_York' }
-        },
-        required: ['date']
-      }
-    },
-    {
-      name: 'confirm_table_reservation',
-      description: 'Book a table for a given day, time and number of people.',
-      parameters: {
-        type: 'object',
-        properties: {
-          people: { type: 'integer', description: 'For how many people the table booking should be, from 1 up to 12 person.', format: 'int', maximum: 12, minimum: 1 },
-          date: { type: 'string', description: 'Day for the table booking', format: 'date', default: new Date().toISOString().slice(0, 10) },
-          time: { type: 'string', description: 'Day time for the table booking', format: 'time',  default: new Date().toISOString().slice(11, 16) },
-          name: { type: 'string', description: 'Person name and surname for who the table is booked' },
-          email: { type: 'string', description: 'Contact email' },
-          timezone: { type: 'string', format: 'timezone', default: 'America/New_York' }
-        },
-        required: ['people', 'date', 'time', 'name', 'email']
-      }
-    },
-    {
-      name: 'check_table_date_availability',
-      description: 'Check table reservation availability for a given day and time',
-      parameters: {
-        type: 'object',
-        properties: {
-          date: { type: 'string', format: 'date', default: new Date().toISOString().slice(0, 10) },
-          time: { type: 'string', format: 'time', default: new Date().toISOString().slice(11, 16) },
-          timezone: { type: 'string', format: 'timezone', default: 'America/New_York' }
-        },
-        required: ['date', 'time']
-      }
-    }
-  ],
+  openaiFunctions,
 
   // Optional. HTTP server TCP port to be used. Defaults to 8080
   port: +env.PORT || 8080,
